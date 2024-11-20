@@ -1,4 +1,4 @@
-# proot: print_backtrace_and_abort ./path/path.c
+# proot: print_backtrace_and_abort ./path/path.c TERMUX_PKG_DEPENDS="libtalloc, glibc-repo"
 TERMUX_PKG_HOMEPAGE=https://talloc.samba.org/talloc/doc/html/index.html
 TERMUX_PKG_DESCRIPTION="Hierarchical, reference counted memory pool system with destructors"
 TERMUX_PKG_LICENSE="GPL-3.0"
