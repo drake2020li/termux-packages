@@ -5,7 +5,7 @@ TERMUX_PKG_MAINTAINER="Michal Bednarski @michalbednarski"
 TERMUX_PKG_VERSION=5.1.107
 TERMUX_PKG_REVISION=65
 TERMUX_PKG_SRCURL=https://github.com/drake2020li/proot-termux/archive/refs/heads/master.zip
-TERMUX_PKG_SHA256=5005e394b363b4f87e1a73feb46ed6040910f8a105a71d0161ce529eef9056c5
+TERMUX_PKG_SHA256=ad1e8bd2bb0a3fbecdd2dfac22791a0ce8d86e8d2887357e566bbc99d4ef0d47
 TERMUX_PKG_AUTO_UPDATE=false
 TERMUX_PKG_DEPENDS="libtalloc"
 TERMUX_PKG_SUGGESTS="proot-distro"
@@ -14,6 +14,15 @@ TERMUX_PKG_EXTRA_MAKE_ARGS="-C src"
 
 # Install loader in libexec instead of extracting it every time
 export PROOT_UNBUNDLE_LOADER=$TERMUX_PREFIX/libexec/proot
+
+termux_step_make() {
+	if [ "$TERMUX_ON_DEVICE_BUILD" = "false" ]; then
+		ln -sf $TERMUX_PKG_HOSTBUILD_DIR/llvm-linux-x86_64 $TERMUX_PKG_BUILDDIR/llvm-linux-x86_64
+		for header in execinfo.h; do
+			ln -sf $TERMUX_PREFIX/include/$header $TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/include/$header
+		done
+	fi
+}
 
 termux_step_pre_configure() {
 	CPPFLAGS+=" -DARG_MAX=131072"
