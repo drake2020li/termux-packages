@@ -16,6 +16,8 @@ TERMUX_PKG_EXTRA_MAKE_ARGS="-C src"
 export PROOT_UNBUNDLE_LOADER=$TERMUX_PREFIX/libexec/proot
 
 termux_step_pre_configure() {
+	export LDFLAGS+=" -landroid-execinfo"
+
 	CPPFLAGS+=" -DARG_MAX=131072"
 }
 
