@@ -5,9 +5,9 @@ TERMUX_PKG_MAINTAINER="Michal Bednarski @michalbednarski"
 TERMUX_PKG_VERSION=5.1.107
 TERMUX_PKG_REVISION=65
 TERMUX_PKG_SRCURL=https://github.com/drake2020li/proot-termux/archive/refs/heads/master.zip
-TERMUX_PKG_SHA256=ad1e8bd2bb0a3fbecdd2dfac22791a0ce8d86e8d2887357e566bbc99d4ef0d47
+TERMUX_PKG_SHA256=ac6871ea095c52744a5b6d7f57412dd4c4760f1b36fc8d4a16e008fd9fae5940
 TERMUX_PKG_AUTO_UPDATE=false
-TERMUX_PKG_DEPENDS="libtalloc, libandroid-execinfo"
+TERMUX_PKG_DEPENDS="libtalloc"
 TERMUX_PKG_SUGGESTS="proot-distro"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_EXTRA_MAKE_ARGS="-C src"
@@ -16,8 +16,6 @@ TERMUX_PKG_EXTRA_MAKE_ARGS="-C src"
 export PROOT_UNBUNDLE_LOADER=$TERMUX_PREFIX/libexec/proot
 
 termux_step_pre_configure() {
-	export LDFLAGS+=" -landroid-execinfo"
-
 	CPPFLAGS+=" -DARG_MAX=131072"
 }
 
