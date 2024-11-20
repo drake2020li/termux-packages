@@ -1,4 +1,4 @@
-# 3 proot: print paths when: ./path/path.c:546: Comparison compare_paths2(const char *, size_t, const char *, size_t)
+# 4 proot: print paths when: ./path/path.c:546: Comparison compare_paths2(const char *, size_t, const char *, size_t)
 TERMUX_PKG_HOMEPAGE=https://talloc.samba.org/talloc/doc/html/index.html
 TERMUX_PKG_DESCRIPTION="Hierarchical, reference counted memory pool system with destructors"
 TERMUX_PKG_LICENSE="GPL-3.0"
