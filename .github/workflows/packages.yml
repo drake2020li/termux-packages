@@ -209,6 +209,7 @@ jobs:
 
     - name: Build packages
       run: |
+        export TERMUX_FORCE_BUILD_DEPENDENCIES=true
         declare -a packages
         for repo_path in $(jq --raw-output 'del(.pkg_format) | keys | .[]' repo.json); do
           repo=$(jq --raw-output '.["'${repo_path}'"].name' repo.json)
