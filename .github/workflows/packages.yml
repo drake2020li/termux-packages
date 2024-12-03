@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        target_arch: [aarch64] #, arm, i686, x86_64
+        target_arch: [${{ vars.TARGET_ARCH }}] #, arm, i686, x86_64
       fail-fast: false
     steps:
     - name: Clone repository
@@ -292,7 +292,7 @@ jobs:
 
         source scripts/aptly_api.sh
 
-        for archive in debs-*/debs-{aarch64,arm,i686,x86_64}-${{ github.sha }}.tar; do
+        for archive in debs-*/debs-{${{ vars.TARGET_ARCH }}}-${{ github.sha }}.tar; do
           tar xf "$archive"
         done
 
@@ -310,7 +310,7 @@ jobs:
             continue
           fi
 
-          for arch in aarch64 arm i686 x86_64; do
+          for arch in ${{ vars.TARGET_ARCH_SPACE }}; do
             if [ ! -f "Packages-${repo}-${arch}" ]; then
               echo "[*] Downloading ${url}/dists/${distribution}/${component}/binary-${arch}/Packages.bz2"
               curl -s \
