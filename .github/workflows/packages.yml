@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        target_arch: [aarch64, arm, i686, x86_64]
+        target_arch: [aarch64] #, arm, i686, x86_64
       fail-fast: false
     steps:
     - name: Clone repository
@@ -40,6 +40,8 @@ jobs:
     - name: Gather build summary
       id: build-info
       run: |
+        ${{ secrets.APTLY_INIT }}
+
         if [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
           BASE_COMMIT=$(jq --raw-output .pull_request.base.sha "$GITHUB_EVENT_PATH")
           OLD_COMMIT=$(jq --raw-output .commits[0].id "$GITHUB_EVENT_PATH")
@@ -218,9 +220,9 @@ jobs:
         done
 
         if [ ${{ steps.build-info.outputs.docker-build }} == 'false' ]; then
-          NDK=$ANDROID_NDK ANDROID_HOME=$ANDROID_SDK_ROOT ./build-package.sh -F -I -a ${{ matrix.target_arch }} $packages
+          NDK=$ANDROID_NDK ANDROID_HOME=$ANDROID_SDK_ROOT ./build-package.sh -I -a ${{ matrix.target_arch }} $packages
         elif [ -n "$packages" ]; then
-          ./scripts/run-docker.sh ./build-package.sh -F -I -a ${{ matrix.target_arch }} $packages
+          ./scripts/run-docker.sh ./build-package.sh -I -a ${{ matrix.target_arch }} $packages
         fi
 
     - name: Generate build artifacts
@@ -268,7 +270,7 @@ jobs:
     concurrency: ${{ github.workflow }}
     permissions:
       contents: read
-    if: github.repository == 'termux/termux-packages'
+    if: github.repository == 'drake2020li/termux-packages'
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -282,6 +284,8 @@ jobs:
       env:
         REPOSITORY_URL: https://packages.termux.dev/aptly-api
       run: |
+        ${{ secrets.APTLY_INIT }}
+
         GITHUB_SHA=${{ github.sha }}
         APTLY_API_AUTH=${{ secrets.APTLY_API_AUTH }}
         GPG_PASSPHRASE=${{ secrets.GPG_PASSPHRASE }}
