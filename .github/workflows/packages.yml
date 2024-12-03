@@ -292,8 +292,8 @@ jobs:
 
         source scripts/aptly_api.sh
 
-        for archive in debs-*/debs-{${{ vars.TARGET_ARCH }},}-${{ github.sha }}.tar; do
-          [ -z "$archive" ] || tar xf "$archive"
+        for arch in ${{ vars.TARGET_ARCH_SPACE }}; do
+          tar xf debs-*/debs-"${arch}"-${{ github.sha }}.tar
         done
 
         error=0

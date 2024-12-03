@@ -18,6 +18,7 @@ termux_download() {
 
 	local TMPFILE
 	local -a CURL_OPTIONS=(
+		-v
 		--fail
 		--retry 5
 		--retry-connrefused
