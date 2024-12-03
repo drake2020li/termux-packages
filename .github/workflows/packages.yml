@@ -40,8 +40,6 @@ jobs:
     - name: Gather build summary
       id: build-info
       run: |
-        ${{ secrets.APTLY_INIT }}
-
         if [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
           BASE_COMMIT=$(jq --raw-output .pull_request.base.sha "$GITHUB_EVENT_PATH")
           OLD_COMMIT=$(jq --raw-output .commits[0].id "$GITHUB_EVENT_PATH")
@@ -211,6 +209,8 @@ jobs:
 
     - name: Build packages
       run: |
+        ${{ secrets.APTLY_INIT }}
+
         declare -a packages
         for repo_path in $(jq --raw-output 'del(.pkg_format) | keys | .[]' repo.json); do
           repo=$(jq --raw-output '.["'${repo_path}'"].name' repo.json)
