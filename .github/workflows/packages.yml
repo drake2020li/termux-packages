@@ -157,10 +157,10 @@ jobs:
         [ -n "$packages" ] && if grep -qP "(^|\\s)${packages// /($|\\s)|(^|\\s)}($|\\s)" ./scripts/big-pkgs.list; then
           docker='false'
         fi
-        echo "docker-build=$docker" >> $GITHUB_OUTPUT
 
         ${{ secrets.APTLY_INIT }}
 
+        echo "docker-build=$docker" >> $GITHUB_OUTPUT
         if [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
           # Build local Docker image if setup scripts were changed.
           # Useful for pull requests submitting changes for both build environment and packages.
