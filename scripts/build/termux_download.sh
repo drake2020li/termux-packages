@@ -30,7 +30,7 @@ termux_download() {
 	if [[ "${TERMUX_QUIET_BUILD-}" == "true" ]]; then
 		CURL_OPTIONS+=( --no-progress-meter)
 	fi
-cat /etc/hosts
+
 	echo "Downloading ${URL}"
 	if ! curl "${CURL_OPTIONS[@]}" --output "$TMPFILE" "$URL"; then
 		local error=1
