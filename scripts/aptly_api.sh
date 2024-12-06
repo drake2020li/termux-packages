@@ -102,7 +102,7 @@ aptly_add_to_repo() {
   http_status_code=$(echo "$curl_response" | cut -d'|' -f2 | grep -oP '\d{3}$')
 
   if [ "$http_status_code" = "200" ]; then
-    warnings=$(echo "$curl_response" | cut -d'|' -f1 | jq '.Report.Warnings' | jq -r '.[]')
+    warnings=$(echo '' || echo "$curl_response" | cut -d'|' -f1 | jq '.Report.Warnings' | jq -r '.[]')
     if [ -n "$warnings" ]; then
       echo "[$(date +%H:%M:%S)] APTLY WARNINGS (NON-CRITICAL):"
       echo
