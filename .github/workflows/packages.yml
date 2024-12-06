@@ -298,7 +298,7 @@ jobs:
         done
 
         error=0
-        for repo in $(jq --raw-output 'del(.pkg_format) | keys | .[]' repo.json); do
+        for repo in $(echo '' || jq --raw-output 'del(.pkg_format) | keys | .[]' repo.json); do
           name=$(jq --raw-output '.["'${repo}'"].name' repo.json)
           distribution=$(jq --raw-output '.["'${repo}'"].distribution' repo.json)
           component=$(jq --raw-output '.["'${repo}'"].component' repo.json)
@@ -344,7 +344,8 @@ jobs:
           shopt -s nullglob
 
           if [ -f debs/built_${REPOSITORY_NAME}_packages.txt ]; then
-            for filename in $(cat debs/built_${REPOSITORY_NAME}_packages.txt | sed -E 's/(..*)/debs\/\1_\*.deb debs\/\1-static_\*.deb/g'); do
+            #for filename in $(cat debs/built_${REPOSITORY_NAME}_packages.txt | sed -E 's/(..*)/debs\/\1_\*.deb debs\/\1-static_\*.deb/g'); do
+            for filename in debs/*.deb; do
               if ! aptly_upload_file "$filename"; then
                 exit 1
               fi
