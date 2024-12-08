@@ -271,7 +271,7 @@ jobs:
     concurrency: ${{ github.workflow }}
     permissions:
       contents: read
-    if: github.repository == 'drake2020li/termux-packages'
+    if: github.event_name == 'workflow_dispatch' && github.repository == 'drake2020li/termux-packages'
     needs: build
     runs-on: ubuntu-latest
     steps:
