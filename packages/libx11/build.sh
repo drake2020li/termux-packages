@@ -17,7 +17,6 @@ ac_cv_path_RAWCPP=/usr/bin/cpp
 "
 termux_step_pre_configure() {
 	export LDFLAGS+="-landroid-shmem"
-	./_autosetup
 }
 termux_step_post_massage() {
 	# Regression test for broken XLC_LOCALE files. Do not remove.
