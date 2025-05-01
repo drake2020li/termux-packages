@@ -2,12 +2,12 @@ TERMUX_PKG_HOMEPAGE=https://github.com/Genymobile/scrcpy
 TERMUX_PKG_DESCRIPTION="Provides display and control of Android devices connected via USB or over TCP/IP"
 TERMUX_PKG_LICENSE="Apache-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="3.0.2"
+TERMUX_PKG_VERSION="3.2"
 TERMUX_PKG_SRCURL=https://github.com/Genymobile/scrcpy/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=5ab92d091f308679fe81851666acec1b161e6810ac73eb9bade705ade285e109
+TERMUX_PKG_SHA256=9902a3afd75f9a5da64898ac06ffaf77065dd713a58f47a408630b98f03ba9ce
 TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="android-tools, ffmpeg, libusb, sdl2"
-TERMUX_PKG_ANTI_BUILD_DEPENDS="android-tools"
+TERMUX_PKG_DEPENDS="android-tools, ffmpeg, libusb, sdl2 | sdl2-compat"
+TERMUX_PKG_ANTI_BUILD_DEPENDS="android-tools, sdl2-compat"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -Dprebuilt_server=$TERMUX_PKG_SRCDIR/scrcpy-server-v${TERMUX_PKG_VERSION}
 "

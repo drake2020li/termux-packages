@@ -2,9 +2,10 @@ TERMUX_PKG_HOMEPAGE=https://zrok.io/
 TERMUX_PKG_DESCRIPTION="An open source sharing solution built on OpenZiti."
 TERMUX_PKG_LICENSE="Apache-2.0"
 TERMUX_PKG_MAINTAINER="Joshua Kahn @TomJo2000"
-TERMUX_PKG_VERSION="0.4.44"
+TERMUX_PKG_VERSION="1.0.2"
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/openziti/zrok/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=b182117773177f40ba8f44f466d69b46c0a58ba6f3ccd94cab916ce164e5d353
+TERMUX_PKG_SHA256=e3f1ed100ad0ce01afb681f2de000fa861100013beb52e009909d57da8283e46
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_AUTO_UPDATE=true
 
@@ -16,11 +17,13 @@ termux_step_make() {
 	termux_setup_nodejs
 	termux_setup_golang
 
-	pushd ui
-	cd "$TERMUX_PKG_SRCDIR/ui"
-	npm install
-	npm run build
-	popd
+	dirs=("ui" "agent/agentUi")
+	for dir in "${dirs[@]}"; do
+		pushd "$dir"
+		npm install
+		npm run build
+		popd
+	done
 
 	mkdir -p  "$TERMUX_PKG_SRCDIR/dist"
 
